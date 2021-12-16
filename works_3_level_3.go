@@ -13,7 +13,7 @@ var i int
 
 func main() {
 
-	over := make(chan bool, 10)
+	over := make(chan bool, 1)
 
 	for i = 0; i < 10; i++ {
 
