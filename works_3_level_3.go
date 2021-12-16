@@ -13,28 +13,30 @@ var i int
 
 func main() {
 
-	over := make(chan bool, 1)
+	over := make(chan bool, 10)
 
 	for i = 0; i < 10; i++ {
 
-		wg.Add(1)
+		go func(i int) {
 
-		go func() {
+			wg.Add(1)
 
 			fmt.Println(i)
 
 			wg.Done()
 
-		}()
-
-		wg.Wait()
+		}(i)
 
 		if i == 9 {
 			over <- true
 		}
 
 	}
+
 	<-over
+
+	wg.Wait()
+
 	fmt.Println("Over")
 
 }
